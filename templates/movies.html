@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block content %}
+<a href="{{ url_for('index') }}" class="back-link">← Back to Users</a>
+<h1>Movies for {{ user.name }}</h1>
+
+{% if movies %}
+    <div class="movie-grid">
+        {% for m in movies %}
+            <article class="movie-card">
+                <div class="poster">
+                    {% if m.poster_url %}
+                        <img src="{{ m.poster_url }}" alt="Poster for {{ m.title }}">
+                    {% else %}
+                        <div class="poster placeholder">No Poster</div>
+                    {% endif %}
+                </div>
+                <div class="details">
+                    <h3>{{ m.title }}</h3>
+
+                    <form method="post" action="{{ url_for('update_movie', user_id=user.id, movie_id=m.id) }}" class="inline-form">
+                        <input type="hidden" name="refetch" value="on">
+                        <button type="submit">Update</button>
+                    </form>
+
+                    <p class="meta-line">Year: {{ m.year or "—" }}</p>
+                    <p class="meta-line">Director: {{ m.director or "—" }}</p>
+
+                    <form method="post" action="{{ url_for('delete_movie', user_id=user.id, movie_id=m.id) }}" onsubmit="return confirm('Delete this movie?');" class="inline-form danger">
+                        <button type="submit">Delete</button>
+                    </form>
+                </div>
+            </article>
+        {% endfor %}
+    </div>
+{% else %}
+    <p class="muted">No movies yet. Add one below.</p>
+{% endif %}
+
+<h2>Add New Movie</h2>
+<section class="card">
+    <form method="post" action="{{ url_for('add_movie', user_id=user.id) }}">
+        <label for="title">Movie Title</label>
+        <input type="text" name="title" id="title" required>
+        <button type="submit">Add Movie</button>
+    </form>
+</section>
+{% endblock %}

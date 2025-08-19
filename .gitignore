@@ -135,7 +135,7 @@ celerybeat.pid
 *.sage.py
 
 # Environments
-.env
+omdb_movie/.env
 .envrc
 .venv
 env/
