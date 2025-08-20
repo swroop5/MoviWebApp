@@ -8,9 +8,10 @@ from __future__ import annotations
 import os
 from typing import Any, Dict, Optional
 
+import dotenv
 import requests
 
-
+dotenv.load_dotenv()
 OMDB_API_KEY = os.getenv("OMDB_API_KEY")
 
 
