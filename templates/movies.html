@@ -18,6 +18,8 @@
                     <h3>{{ m.title }}</h3>
 
                     <form method="post" action="{{ url_for('update_movie', user_id=user.id, movie_id=m.id) }}" class="inline-form">
+                        <label for="title">Movie Title</label>
+                        <input type="text" name="title" id="title" required>
                         <input type="hidden" name="refetch" value="on">
                         <button type="submit">Update</button>
                     </form>
